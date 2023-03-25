@@ -36,7 +36,7 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FirstService\FirstService.csproj" />
+    <ProjectReference Include="..\DeviceService\DeviceService.csproj" />
     <ProjectReference Include="..\WebClient\WebClient.csproj">
       <ServiceLaunchUrl>http://localhost:{ServicePort}/</ServiceLaunchUrl>
     </ProjectReference>
