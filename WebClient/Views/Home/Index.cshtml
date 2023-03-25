@@ -39,6 +39,7 @@
                     <th>ID</th>
                     <th>Name</th>
                     <th>Is on remont</th>
+                    <th>Send device to remont</th>
                     <th>&nbsp;</th>
                     <th>&nbsp;</th>
                 </tr>
@@ -55,6 +56,16 @@
                         </td>
                         <td>
                             @item.IsOnRemont
+                        </td>
+                        <td>
+                            @if (item.IsOnRemont == false)
+                            {
+                                <input type="button" value="Remont" onclick="location.href='@Url.Action("AllRemonts", "Home")'" />
+                            }
+                            else
+                            {
+                                <p>Device is on remont</p>
+                            }
                         </td>
                     </tr>
                 }

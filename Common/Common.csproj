@@ -55,9 +55,9 @@
   <ItemGroup>
     <Compile Include="Device.cs" />
     <Compile Include="Interfaces\IDeviceService.cs" />
+    <Compile Include="Interfaces\IRemontService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Remont.cs" />
-    <Compile Include="RemontTable.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

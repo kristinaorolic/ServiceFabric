@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.WindowsAzure.Storage.Table;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -7,26 +8,23 @@ using System.Threading.Tasks;
 
 namespace Common
 {
-    [DataContract]
-    public class Remont
+    public class Remont : TableEntity
     {
         public Remont() { }
 
-        public Remont(int timeInMagacin, int timeOfExploatation, int timeOnRemont, int numberOfRemont)
+        public Remont(int timeInMagacin, int timeOfExploatation, int timeOnRemont, string numberOfRemont)
         {
             TimeInMagacin = timeInMagacin;
             TimeOfExploatation = timeOfExploatation;
             TimeOnRemont = timeOnRemont;
             NumberOfRemont = numberOfRemont;
+            PartitionKey = "remont";
+            RowKey = numberOfRemont;
         }
 
-        [DataMember]
         public int TimeInMagacin { get; set; }
-        [DataMember]
         public int TimeOfExploatation { get; set; }
-        [DataMember]
         public int TimeOnRemont { get; set; }
-        [DataMember]
-        public int NumberOfRemont { get; set; }
+        public string NumberOfRemont { get; set; }
     }
 }

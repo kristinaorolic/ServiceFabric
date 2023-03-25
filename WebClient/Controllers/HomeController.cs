@@ -92,5 +92,10 @@ namespace WebClient.Controllers
                 new ServicePartitionKey(index % partitionNumber));
             return await servicePartitionClient.InvokeWithRetryAsync(client => client.Channel.GetAllDevices());
         }
+
+        public IActionResult AllRemonts()
+        {
+            return View();
+        }
     }
 }

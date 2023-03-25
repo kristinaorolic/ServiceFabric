@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeviceService", "DeviceService\DeviceService.csproj", "{750E1E4A-3018-4698-A7F7-EEACC92CC390}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemontService", "RemontService\RemontService.csproj", "{3E724059-6521-4D53-8DD8-6ABB714119D7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +51,12 @@ Global
 		{750E1E4A-3018-4698-A7F7-EEACC92CC390}.Release|Any CPU.ActiveCfg = Release|x64
 		{750E1E4A-3018-4698-A7F7-EEACC92CC390}.Release|x64.ActiveCfg = Release|x64
 		{750E1E4A-3018-4698-A7F7-EEACC92CC390}.Release|x64.Build.0 = Release|x64
+		{3E724059-6521-4D53-8DD8-6ABB714119D7}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{3E724059-6521-4D53-8DD8-6ABB714119D7}.Debug|x64.ActiveCfg = Debug|x64
+		{3E724059-6521-4D53-8DD8-6ABB714119D7}.Debug|x64.Build.0 = Debug|x64
+		{3E724059-6521-4D53-8DD8-6ABB714119D7}.Release|Any CPU.ActiveCfg = Release|x64
+		{3E724059-6521-4D53-8DD8-6ABB714119D7}.Release|x64.ActiveCfg = Release|x64
+		{3E724059-6521-4D53-8DD8-6ABB714119D7}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

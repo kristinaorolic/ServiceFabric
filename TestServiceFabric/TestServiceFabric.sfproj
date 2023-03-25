@@ -37,6 +37,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DeviceService\DeviceService.csproj" />
+    <ProjectReference Include="..\RemontService\RemontService.csproj" />
     <ProjectReference Include="..\WebClient\WebClient.csproj">
       <ServiceLaunchUrl>http://localhost:{ServicePort}/</ServiceLaunchUrl>
     </ProjectReference>
