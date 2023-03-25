@@ -20,7 +20,7 @@ namespace DeviceService
 
         public Task<List<Device>> GetAllDevices()
         {
-            throw new NotImplementedException();
+            return dDictionary.GetAllDevices();
         }
 
         public Task<bool> SaveDevice(Device device)

@@ -17,8 +17,15 @@ namespace WebClient.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            //var devices = SessionHelper.GetObjectFromSession<List<Device>>(HttpContext.Session, "devices");
+            //if (devices == null)
+                ViewBag.Devices = await AllDevices();
+            //else
+            //{
+            //    ViewBag.Trips = devices;
+            //}
             return View();
         }
 
@@ -67,6 +74,23 @@ namespace WebClient.Controllers
             bool successfull = await servicePartitionClient.InvokeWithRetryAsync(client => client.Channel.SaveDevice(device));
 
             return RedirectToAction("Index");
+        }
+
+
+        [HttpGet]
+        public async Task<List<Device>> AllDevices()
+        {
+            FabricClient fabricClient = new FabricClient();
+            int partitionNumber = (await fabricClient.QueryManager.GetPartitionListAsync(new Uri("fabric:/TestServiceFabric/DeviceService"))).Count;
+            var binding = WcfUtility.CreateTcpClientBinding();
+            int index = 0;
+
+            ServicePartitionClient<WcfCommunicationClient<IDeviceService>> servicePartitionClient = new
+                ServicePartitionClient<WcfCommunicationClient<IDeviceService>>(
+                new WcfCommunicationClientFactory<IDeviceService>(binding),
+                new Uri("fabric:/TestServiceFabric/DeviceService"),
+                new ServicePartitionKey(index % partitionNumber));
+            return await servicePartitionClient.InvokeWithRetryAsync(client => client.Channel.GetAllDevices());
         }
     }
 }

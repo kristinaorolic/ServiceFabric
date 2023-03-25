@@ -5,6 +5,64 @@
 
 <form action="~/Home/SaveDevice" method="post">
     <label>Device name: </label>
-    <input name="name" id="name"/>
-    <input type="submit" value="Save device"/>
+    <input name="name" id="name" />
+    <input type="submit" value="Save device" />
 </form>
+
+@*<button name="All devices" type="button" onclick="location.href='@Url.Action("AllDevices", "Home")'" />*@
+
+
+@if (ViewBag.Devices != null)
+{
+    <div>
+        @if (ViewBag.Result != null)
+        {
+            @if (ViewBag.Result.Error == true)
+            {
+                <div class="error-msg" id="error-msg">
+                    <p style="color: red">@ViewBag.Result.Message</p>
+                </div>
+            }
+            else
+            {
+                <div class="success-msg" id="success-msg">
+                    <p style="color: green">@ViewBag.Result.Message</p>
+                </div>
+            }
+        }
+
+        <h5>Devices:</h5>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Is on remont</th>
+                    <th>&nbsp;</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in ViewBag.Devices)
+                {
+                    <tr>
+                        <td>
+                            @item.Id
+                        </td>
+                        <td>
+                            @item.Name
+                        </td>
+                        <td>
+                            @item.IsOnRemont
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <p>There is no devices.</p>
+}
