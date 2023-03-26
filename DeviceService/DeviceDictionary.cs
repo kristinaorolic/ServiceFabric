@@ -163,5 +163,34 @@ namespace DeviceService
                 }
             }
         }
+
+        public async Task<bool> ChangeDeviceStatus(string id)
+        {
+            var dict = await this.reliableServiceManager.GetOrAddAsync<IReliableDictionary<string, Device>>("deviceDictionary");
+
+            try
+            {
+
+                using (var tx = this.reliableServiceManager.CreateTransaction())
+                {
+                    var device = await dict.TryGetValueAsync(tx, id);
+                    if (device.HasValue)
+                    {
+                        device.Value.IsOnRemont = !device.Value.IsOnRemont;
+                        await tx.CommitAsync();
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
     }
 }

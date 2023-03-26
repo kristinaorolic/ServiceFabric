@@ -91,10 +91,10 @@ namespace DeviceService
             return requests.ToList();
         }
 
-        //public Film GetOneFilm(string id)
+        //public Device GetOneDevice(string id)
         //{
-        //    IQueryable<Film> requests = from g in table.CreateQuery<Film>()
-        //                                where g.PartitionKey == "Film" && g.RowKey == id
+        //    IQueryable<Device> requests = from g in table.CreateQuery<Device>()
+        //                                where g.PartitionKey == "device" && g.RowKey == id
         //                                select g;
 
         //    return requests.ToList()[0];

@@ -14,5 +14,7 @@ namespace Common.Interfaces
         Task<bool> SaveDevice(Device device);
         [OperationContract]
         Task<List<Device>> GetAllDevices();
+        [OperationContract]
+        Task<bool> CheckIfDeviceIsOnRemont(string id);
     }
 }
