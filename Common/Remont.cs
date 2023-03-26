@@ -12,19 +12,21 @@ namespace Common
     {
         public Remont() { }
 
-        public Remont(int timeInMagacin, int timeOfExploatation, int timeOnRemont, string numberOfRemont)
+        public Remont(int timeInMagacin, DateTime timeOfExploatation, int timeOnRemont, string numberOfRemont, string idOfDevice)
         {
             TimeInMagacin = timeInMagacin;
             TimeOfExploatation = timeOfExploatation;
             TimeOnRemont = timeOnRemont;
             NumberOfRemont = numberOfRemont;
+            IdOfDevice = idOfDevice;
             PartitionKey = "remont";
             RowKey = numberOfRemont;
         }
 
         public int TimeInMagacin { get; set; }
-        public int TimeOfExploatation { get; set; }
+        public DateTime TimeOfExploatation { get; set; }
         public int TimeOnRemont { get; set; }
         public string NumberOfRemont { get; set; }
+        public string IdOfDevice { get; set; }
     }
 }

@@ -106,7 +106,7 @@ namespace RemontService
 
             foreach (var remont in remonts)
             {
-                ret.Add(new Remont(remont.TimeInMagacin, remont.TimeOfExploatation, remont.TimeOnRemont, remont.NumberOfRemont));
+                ret.Add(new Remont(remont.TimeInMagacin, remont.TimeOfExploatation, remont.TimeOnRemont, remont.NumberOfRemont, remont.IdOfDevice));
             }
 
             return ret;
@@ -156,7 +156,7 @@ namespace RemontService
                         var tableInstance =RemontTableHelper.GetInstance();
                         while (await enumerator.MoveNextAsync(cancellationToken))
                         {
-                            tableInstance.AddOrReplaceRemont(enumerator.Current.Value);
+                            //tableInstance.AddOrReplaceRemont(enumerator.Current.Value);
                         }
                     }
                 }

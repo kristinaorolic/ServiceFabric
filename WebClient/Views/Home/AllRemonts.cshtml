@@ -29,12 +29,13 @@
                     <th>Time in magacine</th>
                     <th>Time of exploatation</th>
                     <th>Time on remont</th>
+                    <th>Id of device</th>
                     <th>&nbsp;</th>
                     <th>&nbsp;</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in ViewBag.Remotes)
+                @foreach (var item in ViewBag.Remonts)
                 {
                     <tr>
                         <td>
@@ -48,6 +49,9 @@
                         </td>
                         <td>
                             @item.TimeOnRemont
+                        </td>
+                        <td>
+                            @item.IdOfDevice
                         </td>
                     </tr>
                 }

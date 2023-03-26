@@ -60,7 +60,12 @@
                         <td>
                             @if (item.IsOnRemont == false)
                             {
-                                <input type="button" value="Remont" onclick="location.href='@Url.Action("AllRemonts", "Home")'" />
+                                @*<input type="button" value="Remont" onclick="location.href='@Url.Action("AllRemonts", "Home")'" />*@
+                            
+                            <form action="~/Home/AllRemonts" method="post">
+                                <input type="hidden" value="@UInt32.Parse(item.Id)" name="id" id="id" />
+                                <input type="submit" value="Remont">
+                            </form>
                             }
                             else
                             {

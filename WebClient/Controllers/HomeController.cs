@@ -29,6 +29,13 @@ namespace WebClient.Controllers
             return View();
         }
 
+        public async Task<IActionResult> ShowRemonts()
+        {
+            ViewBag.Remonts = await ShowAllRemonts();
+
+            return View("AllRemonts");
+        }
+
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
@@ -93,9 +100,48 @@ namespace WebClient.Controllers
             return await servicePartitionClient.InvokeWithRetryAsync(client => client.Channel.GetAllDevices());
         }
 
-        public IActionResult AllRemonts()
+        [HttpGet]
+        public async Task<List<Remont>> ShowAllRemonts()
         {
-            return View();
+            FabricClient fabricClient = new FabricClient();
+            int partitionNumber = (await fabricClient.QueryManager.GetPartitionListAsync(new Uri("fabric:/TestServiceFabric/RemontService"))).Count;
+            var binding = WcfUtility.CreateTcpClientBinding();
+            int index = 0;
+
+            ServicePartitionClient<WcfCommunicationClient<IRemontService>> servicePartitionClient = new
+                ServicePartitionClient<WcfCommunicationClient<IRemontService>>(
+                new WcfCommunicationClientFactory<IRemontService>(binding),
+                new Uri("fabric:/TestServiceFabric/RemontService"),
+                new ServicePartitionKey(index % partitionNumber));
+            return await servicePartitionClient.InvokeWithRetryAsync(client => client.Channel.GetAllRemonts());
+        }
+
+
+        [HttpPost]
+        public async Task<ActionResult> AllRemonts(string id)
+        {
+            Remont remont = new Remont();
+            Random rnd = new Random();
+            int days = rnd.Next(1, 9);
+            int daysOnRemont = rnd.Next(1, 12);
+            remont.TimeInMagacin = days;
+            remont.TimeOfExploatation = DateTime.Now;
+            remont.TimeOnRemont = daysOnRemont;
+            remont.IdOfDevice = id;
+
+            FabricClient fabricClient = new FabricClient();
+            int partitionNumber = (await fabricClient.QueryManager.GetPartitionListAsync(new Uri("fabric:/TestServiceFabric/RemontService"))).Count;
+            var binding = WcfUtility.CreateTcpClientBinding();
+            int index = 0;
+
+            ServicePartitionClient<WcfCommunicationClient<IRemontService>> servicePartitionClient = new
+                ServicePartitionClient<WcfCommunicationClient<IRemontService>>(
+                new WcfCommunicationClientFactory<IRemontService>(binding),
+                new Uri("fabric:/TestServiceFabric/RemontService"),
+                new ServicePartitionKey(index % partitionNumber));
+            bool successfull = await servicePartitionClient.InvokeWithRetryAsync(client => client.Channel.SaveRemont(remont));
+
+            return RedirectToAction("ShowRemonts");
         }
     }
 }

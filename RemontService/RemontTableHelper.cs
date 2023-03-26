@@ -58,7 +58,7 @@ namespace RemontService
         {
             TableBatchOperation tableOperations = new TableBatchOperation();
 
-            Remont a1 = new Remont(2, 1, 3, "0");
+            Remont a1 = new Remont(2, DateTime.Now, 3, "0", "1");
             //Device a1 = new Film("123", 10);
             //a2 = new Film("456", 10);
             //Film a3 = new Film("789", 10);
