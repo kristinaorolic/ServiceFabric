@@ -59,9 +59,7 @@
                         </td>
                         <td>
                             @if (item.IsOnRemont == false)
-                            {
-                                @*<input type="button" value="Remont" onclick="location.href='@Url.Action("AllRemonts", "Home")'" />*@
-                            
+                            {                            
                             <form action="~/Home/AllRemonts" method="post">
                                 <input type="hidden" value="@UInt32.Parse(item.Id)" name="id" id="id" />
                                 <input type="submit" value="Remont">
@@ -82,3 +80,11 @@ else
 {
     <p>There is no devices.</p>
 }
+
+<form action="~/Home/ShowAllHistoryRemonts" method="post">
+    <input type="submit" value="History Remonts">
+</form>
+
+<form action="~/Home/ShowRemonts" method="get">
+    <input type="submit" value="All Remonts">
+</form>

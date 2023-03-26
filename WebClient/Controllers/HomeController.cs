@@ -36,6 +36,13 @@ namespace WebClient.Controllers
             return View("AllRemonts");
         }
 
+        public async Task<IActionResult> ShowAllHistoryRemonts()
+        {
+            ViewBag.HistoryRemonts = await GetAllRemontsFromHistory();
+
+            return View("HistoryRemonts");
+        }
+
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
@@ -114,6 +121,21 @@ namespace WebClient.Controllers
                 new Uri("fabric:/TestServiceFabric/RemontService"),
                 new ServicePartitionKey(index % partitionNumber));
             return await servicePartitionClient.InvokeWithRetryAsync(client => client.Channel.GetAllRemonts());
+        }
+
+        private async Task<List<Remont>> GetAllRemontsFromHistory()
+        {
+            FabricClient fabricClient = new FabricClient();
+            int partitionNumber = (await fabricClient.QueryManager.GetPartitionListAsync(new Uri("fabric:/TestServiceFabric/RemontService"))).Count;
+            var binding = WcfUtility.CreateTcpClientBinding();
+            int index = 0;
+
+            ServicePartitionClient<WcfCommunicationClient<IRemontService>> servicePartitionClient = new
+                ServicePartitionClient<WcfCommunicationClient<IRemontService>>(
+                new WcfCommunicationClientFactory<IRemontService>(binding),
+                new Uri("fabric:/TestServiceFabric/RemontService"),
+                new ServicePartitionKey(index % partitionNumber));
+            return await servicePartitionClient.InvokeWithRetryAsync(client => client.Channel.GetAllHistoryRemonts());
         }
 
 

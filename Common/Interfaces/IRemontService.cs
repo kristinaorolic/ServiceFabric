@@ -14,6 +14,8 @@ namespace Common.Interfaces
         Task<bool> SaveRemont(Remont remont);
         [OperationContract]
         Task<List<Remont>> GetAllRemonts();
+        [OperationContract]
+        Task<List<Remont>> GetAllHistoryRemonts();
 
     }
 }

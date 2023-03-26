@@ -61,6 +61,7 @@ namespace RemontService
             var myDictionary = await this.StateManager.GetOrAddAsync<IReliableDictionary<string, long>>("myDictionary");
 
             this.provider.rDictionary.InitDictionary();
+            this.provider.rDictionary.InitHistory();
 
             while (true)
             {

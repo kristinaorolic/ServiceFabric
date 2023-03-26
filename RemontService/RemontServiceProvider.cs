@@ -28,27 +28,15 @@ namespace RemontService
             return rDictionary.GetAllRemonts();
         }
 
-        public Task<bool> SaveRemont(Remont remont)
+        public Task<List<Remont>> GetAllHistoryRemonts()
         {
-            var result = SendDeviceToRemont(remont.IdOfDevice);
-            return rDictionary.AddRemontToDictionary(remont);
+            return rDictionary.GetAllHistoryRemonts();
         }
 
-        public async Task<bool> SendDeviceToRemont(string id)
+        public Task<bool> SaveRemont(Remont remont)
         {
-            FabricClient fabricClient = new FabricClient();
-            int partitionNumber = (await fabricClient.QueryManager.GetPartitionListAsync(new Uri("fabric:/TestServiceFabric/DeviceService"))).Count;
-            var binding = WcfUtility.CreateTcpClientBinding();
-            int index = 0;
-
-            ServicePartitionClient<WcfCommunicationClient<IDeviceService>> servicePartitionClient = new
-                ServicePartitionClient<WcfCommunicationClient<IDeviceService>>(
-                new WcfCommunicationClientFactory<IDeviceService>(binding),
-                new Uri("fabric:/TestServiceFabric/DeviceService"),
-                new ServicePartitionKey(index % partitionNumber));
-
-            return servicePartitionClient.InvokeWithRetryAsync(client => client.Channel.CheckIfDeviceIsOnRemont(id)).Result;
-
+            var result = rDictionary.SendDeviceToRemont(remont.IdOfDevice);
+            return rDictionary.AddRemontToDictionary(remont);
         }
     }
 }

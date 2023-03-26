@@ -46,7 +46,7 @@ namespace RemontService
             table = tableClient.GetTableReference(tableName);
             if (table.CreateIfNotExists())
             {
-                InitTable();
+                //InitTable();
             }
 
         }
@@ -58,13 +58,13 @@ namespace RemontService
         {
             TableBatchOperation tableOperations = new TableBatchOperation();
 
-            Remont a1 = new Remont(2, DateTime.Now, 3, "0", "1");
+            //Remont a1 = new Remont(2, DateTime.Now, 3, "0", "1");
             //Device a1 = new Film("123", 10);
             //a2 = new Film("456", 10);
             //Film a3 = new Film("789", 10);
             //Film a4 = new Film("000", 10);
 
-            tableOperations.InsertOrReplace(a1);
+            //tableOperations.InsertOrReplace(a1);
             //tableOperations.InsertOrReplace(a2);
             //tableOperations.InsertOrReplace(a3);
             //tableOperations.InsertOrReplace(a4);

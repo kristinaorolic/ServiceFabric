@@ -28,9 +28,14 @@ namespace DeviceService
             return dDictionary.AddDeviceToDictionary(device);
         }
 
-        public Task<bool> CheckIfDeviceIsOnRemont(string id)
+        public Task<bool> SendToRemont(string id)
         {
-            return dDictionary.ChangeDeviceStatus(id);
+            return dDictionary.ChangeDeviceStatusToRemont(id);
+        }
+
+        public Task<bool> SendBackFromRemont(string id)
+        {
+            return dDictionary.ChangeDeviceStatusFromRemont(id);
         }
     }
 }

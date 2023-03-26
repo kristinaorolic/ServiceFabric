@@ -1,0 +1,65 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<h1>HISTORY REMONTS</h1>
+@if (ViewBag.HistoryRemonts != null)
+{
+    <div>
+        @if (ViewBag.Result != null)
+        {
+            @if (ViewBag.Result.Error == true)
+            {
+                <div class="error-msg" id="error-msg">
+                    <p style="color: red">@ViewBag.Result.Message</p>
+                </div>
+            }
+            else
+            {
+                <div class="success-msg" id="success-msg">
+                    <p style="color: green">@ViewBag.Result.Message</p>
+                </div>
+            }
+        }
+        <table>
+            <thead>
+                <tr>
+                    <th>Number of remont</th>
+                    <th>Time in magacine</th>
+                    <th>Time of exploatation</th>
+                    <th>Time on remont</th>
+                    <th>Id of device</th>
+                    <th>&nbsp;</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in ViewBag.HistoryRemonts)
+                {
+                    <tr>
+                        <td>
+                            @item.NumberOfRemont
+                        </td>
+                        <td>
+                            @item.TimeInMagacin
+                        </td>
+                        <td>
+                            @item.TimeOfExploatation
+                        </td>
+                        <td>
+                            @item.TimeOnRemont
+                        </td>
+                        <td>
+                            @item.IdOfDevice
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <p>There is no remonts.</p>
+}

@@ -94,17 +94,6 @@ namespace DeviceService
 
             var devices = await GetAllElements();
 
-            FabricClient fabricClient = new FabricClient();
-            int partitionNumber = (await fabricClient.QueryManager.GetPartitionListAsync(new Uri("fabric:/TestServiceFabric/DeviceService"))).Count;
-            var binding = WcfUtility.CreateTcpClientBinding();
-            int index = 0;
-
-            ServicePartitionClient<WcfCommunicationClient<IDeviceService>> servicePartitionClient = new
-                ServicePartitionClient<WcfCommunicationClient<IDeviceService>>(
-                new WcfCommunicationClientFactory<IDeviceService>(binding),
-                new Uri("fabric:/TestServiceFabric/DeviceService"),
-                new ServicePartitionKey(index % partitionNumber));
-
             foreach (var device in devices)
             {
                 ret.Add(new Device(device.Id, device.Name, device.IsOnRemont));
@@ -164,7 +153,7 @@ namespace DeviceService
             }
         }
 
-        public async Task<bool> ChangeDeviceStatus(string id)
+        public async Task<bool> ChangeDeviceStatusToRemont(string id)
         {
             var dict = await this.reliableServiceManager.GetOrAddAsync<IReliableDictionary<string, Device>>("deviceDictionary");
 
@@ -176,7 +165,7 @@ namespace DeviceService
                     var device = await dict.TryGetValueAsync(tx, id);
                     if (device.HasValue)
                     {
-                        device.Value.IsOnRemont = !device.Value.IsOnRemont;
+                        device.Value.IsOnRemont = true;
                         await tx.CommitAsync();
                     }
                     else
@@ -192,5 +181,32 @@ namespace DeviceService
             }
         }
 
+        public async Task<bool> ChangeDeviceStatusFromRemont(string id)
+        {
+            var dict = await this.reliableServiceManager.GetOrAddAsync<IReliableDictionary<string, Device>>("deviceDictionary");
+
+            try
+            {
+
+                using (var tx = this.reliableServiceManager.CreateTransaction())
+                {
+                    var device = await dict.TryGetValueAsync(tx, id);
+                    if (device.HasValue)
+                    {
+                        device.Value.IsOnRemont = false;
+                        await tx.CommitAsync();
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
     }
 }

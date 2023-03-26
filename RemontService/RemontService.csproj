@@ -126,6 +126,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="RemontServiceProvider.cs" />
     <Compile Include="RemontTableHelper.cs" />
+    <Compile Include="RemontTableHistoryHelper.cs" />
     <Compile Include="ServiceEventSource.cs" />
   </ItemGroup>
   <ItemGroup>
