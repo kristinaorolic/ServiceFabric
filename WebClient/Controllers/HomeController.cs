@@ -19,13 +19,7 @@ namespace WebClient.Controllers
     {
         public async Task<IActionResult> Index()
         {
-            //var devices = SessionHelper.GetObjectFromSession<List<Device>>(HttpContext.Session, "devices");
-            //if (devices == null)
                 ViewBag.Devices = await AllDevices();
-            //else
-            //{
-            //    ViewBag.Trips = devices;
-            //}
             return View();
         }
 

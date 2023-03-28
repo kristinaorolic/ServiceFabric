@@ -1,6 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <StartupServicesManifest xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/2011/01/fabric">
   <Parameters>
+    <Parameter Name="EmailStatefulService_MinReplicaSetSize" DefaultValue="3" />
+    <Parameter Name="EmailStatefulService_PartitionCount" DefaultValue="1" />
+    <Parameter Name="EmailStatefulService_TargetReplicaSetSize" DefaultValue="3" />
     <Parameter Name="RemontService_MinReplicaSetSize" DefaultValue="3" />
     <Parameter Name="RemontService_PartitionCount" DefaultValue="1" />
     <Parameter Name="RemontService_TargetReplicaSetSize" DefaultValue="3" />
@@ -15,6 +18,11 @@
          ServiceFabric PowerShell module.
 
          The attribute ServiceTypeName below must match the name defined in the imported ServiceManifest.xml file. -->
+    <Service Name="EmailStatefulService" ServicePackageActivationMode="ExclusiveProcess">
+      <StatefulService ServiceTypeName="EmailStatefulServiceType" TargetReplicaSetSize="[EmailStatefulService_TargetReplicaSetSize]" MinReplicaSetSize="[EmailStatefulService_MinReplicaSetSize]">
+        <UniformInt64Partition PartitionCount="[EmailStatefulService_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
+      </StatefulService>
+    </Service>
     <Service Name="RemontService" ServicePackageActivationMode="ExclusiveProcess">
       <StatefulService ServiceTypeName="RemontServiceType" TargetReplicaSetSize="[RemontService_TargetReplicaSetSize]" MinReplicaSetSize="[RemontService_MinReplicaSetSize]">
         <UniformInt64Partition PartitionCount="[RemontService_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />

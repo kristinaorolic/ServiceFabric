@@ -33,10 +33,14 @@ namespace RemontService
             return rDictionary.GetAllHistoryRemonts();
         }
 
-        public Task<bool> SaveRemont(Remont remont)
+        public async Task<bool> SaveRemont(Remont remont)
         {
-            var result = rDictionary.SendDeviceToRemont(remont.IdOfDevice);
-            return rDictionary.AddRemontToDictionary(remont);
+            var result = await rDictionary.SendDeviceToRemont(remont.IdOfDevice);
+            if(result == false)
+            {
+                return false;
+            }
+            return await rDictionary.AddRemontToDictionary(remont);
         }
     }
 }

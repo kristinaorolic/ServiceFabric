@@ -165,8 +165,15 @@ namespace DeviceService
                     var device = await dict.TryGetValueAsync(tx, id);
                     if (device.HasValue)
                     {
-                        device.Value.IsOnRemont = true;
-                        await tx.CommitAsync();
+                        if(device.Value.IsOnRemont == false)
+                        {
+                            device.Value.IsOnRemont = true;
+                            await tx.CommitAsync();
+                        }
+                        else
+                        {
+                            return false;
+                        }
                     }
                     else
                     {

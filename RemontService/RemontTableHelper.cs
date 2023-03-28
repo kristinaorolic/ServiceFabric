@@ -58,23 +58,11 @@ namespace RemontService
         {
             TableBatchOperation tableOperations = new TableBatchOperation();
 
-            //Remont a1 = new Remont(2, DateTime.Now, 3, "0", "1");
-            //Device a1 = new Film("123", 10);
-            //a2 = new Film("456", 10);
-            //Film a3 = new Film("789", 10);
-            //Film a4 = new Film("000", 10);
-
-            //tableOperations.InsertOrReplace(a1);
-            //tableOperations.InsertOrReplace(a2);
-            //tableOperations.InsertOrReplace(a3);
-            //tableOperations.InsertOrReplace(a4);
-
             table.ExecuteBatch(tableOperations);
         }
 
         #region Operacije nad tabelom
         //Operacije nad tabelom
-        //Find: Film -> Replace: Naziv klase koja se koristi
         public bool AddOrReplaceRemont(Remont remont)
         {
             TableOperation add = TableOperation.InsertOrReplace(remont);
@@ -91,23 +79,7 @@ namespace RemontService
             return requests.ToList();
         }
 
-        //public Film GetOneFilm(string id)
-        //{
-        //    IQueryable<Film> requests = from g in table.CreateQuery<Film>()
-        //                                where g.PartitionKey == "Film" && g.RowKey == id
-        //                                select g;
 
-        //    return requests.ToList()[0];
-        //}
-
-        //public List<Film> GetAllFilmByName(string name)
-        //{
-        //    IQueryable<Film> requests = from g in table.CreateQuery<Film>()
-        //                                where g.PartitionKey == "Film" && g.Naziv == name
-        //                                select g;
-
-        //    return requests.ToList();
-        //}
         #endregion
     }
 }

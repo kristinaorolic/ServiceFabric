@@ -20,7 +20,6 @@ namespace RemontService
     public class RemontDictionary
     {
         IReliableStateManager reliableServiceManager { get; set; }
-        //DeviceTableHelper deviceTable { get; set; }
         private Thread updateRemontTable;
         private Thread historyThread;
 
@@ -115,8 +114,6 @@ namespace RemontService
             {
                 throw e;
             }
-
-            //RemontTableHelper.GetInstance().AddOrReplaceRemont(remont);
 
             return true;
         }

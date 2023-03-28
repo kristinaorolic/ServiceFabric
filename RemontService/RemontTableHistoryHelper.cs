@@ -59,12 +59,6 @@ namespace RemontService
             return true;
         }
 
-        //public void DeleteTrip(Trip obj)
-        //{
-        //    TableOperation delete = TableOperation.Delete(obj);
-        //    table.Execute(delete);
-        //}
-
         public List<Remont> GetAllRemonts()
         {
             IQueryable<Remont> requests = from g in table.CreateQuery<Remont>()
@@ -73,20 +67,6 @@ namespace RemontService
             return requests.ToList();
         }
 
-        //public Trip GetTrip(string ID)
-        //{
-        //    IQueryable<Trip> requests = from g in table.CreateQuery<Trip>()
-        //                                where g.PartitionKey == "Trip" && g.RowKey == ID
-        //                                select g;
-
-        //    var trips = requests.ToList();
-        //    if (trips.Count > 0)
-        //    {
-        //        return trips[0];
-        //    }
-        //    else
-        //        return null;
-        //}
 
         #endregion
     }
